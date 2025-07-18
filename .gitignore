@@ -6,3 +6,4 @@ riderModule.iml
 /GameEngineTests/Debug/
 /GameProjectTests/Debug/
 /Debug/
+*.DotSettings.user

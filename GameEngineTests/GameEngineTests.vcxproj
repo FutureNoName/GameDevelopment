@@ -41,6 +41,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngineLib\GameEngineLib.vcxproj">
+      <Project>{922df46a-fda4-4800-838f-504118dc7b42}</Project>
+      <Name>GameEngineLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
