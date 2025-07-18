@@ -4,6 +4,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineLib", "GameEngineLib\GameEngineLib.vcxproj", "{922DF46A-FDA4-4800-838F-504118DC7B42}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameProjectTests", "GameProjectTests\GameProjectTests.vcxproj", "{AC7B0E83-87B8-43A0-90BA-8352A2B68FD4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineTests", "GameEngineTests\GameEngineTests.vcxproj", "{4AD0A2D4-4700-460E-8249-30CDDC21320F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{922DF46A-FDA4-4800-838F-504118DC7B42}.Debug|Any CPU.Build.0 = Debug|Win32
 		{922DF46A-FDA4-4800-838F-504118DC7B42}.Release|Any CPU.ActiveCfg = Release|Win32
 		{922DF46A-FDA4-4800-838F-504118DC7B42}.Release|Any CPU.Build.0 = Release|Win32
+		{AC7B0E83-87B8-43A0-90BA-8352A2B68FD4}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{AC7B0E83-87B8-43A0-90BA-8352A2B68FD4}.Debug|Any CPU.Build.0 = Debug|Win32
+		{AC7B0E83-87B8-43A0-90BA-8352A2B68FD4}.Release|Any CPU.ActiveCfg = Release|Win32
+		{AC7B0E83-87B8-43A0-90BA-8352A2B68FD4}.Release|Any CPU.Build.0 = Release|Win32
+		{4AD0A2D4-4700-460E-8249-30CDDC21320F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4AD0A2D4-4700-460E-8249-30CDDC21320F}.Debug|Any CPU.Build.0 = Debug|Win32
+		{4AD0A2D4-4700-460E-8249-30CDDC21320F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4AD0A2D4-4700-460E-8249-30CDDC21320F}.Release|Any CPU.Build.0 = Release|Win32
 	EndGlobalSection
 EndGlobal
