@@ -1,6 +1,8 @@
 #include "Window.h"
 #include <windows.h>
 
+#include "Renderer.h"
+
 int WINAPI wWinMain(
     const HINSTANCE hInstance,
     const HINSTANCE hPrevInstance,
@@ -12,9 +14,9 @@ int WINAPI wWinMain(
 
     const Window window(hInstance, width, height, title);
     window.Show(nShowCmd);
-
+    
     while (Window::ProcessMessages()) {
-        // Game update, rendering, etc. goes here
+        
     }
 
     return 0;

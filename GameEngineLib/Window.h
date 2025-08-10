@@ -12,6 +12,7 @@ public:
     Window& operator=(Window&&) = delete;
 
     void Show(int nShowCmd) const;
+    void ResizeWindow(int width, int height) const;
     static bool ProcessMessages();
 
     HWND GetHandle() const;

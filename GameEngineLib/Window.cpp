@@ -1,6 +1,10 @@
 ﻿#include "Window.h"
 #include <stdexcept>
 
+#include "Renderer.h"
+
+/* ***************************** PUBLIC ***************************** */
+
 /**
  * Window constructor
  * @param hInstance Handle to the application instance; identifies the running app for the OS and provided by it.
@@ -48,6 +52,25 @@ void Window::Show(const int nShowCmd) const {
 }
 
 /**
+ * Resize window
+ * @param width window width (x)
+ * @param height window height (y)
+ */
+void Window::ResizeWindow(const int width, const int height) const {
+    RECT rect;
+    GetWindowRect(m_hwnd, &rect);
+    SetWindowPos(
+        m_hwnd,
+        nullptr,
+        rect.left,
+        rect.top,
+        width,
+        height,
+        SWP_NOZORDER | SWP_NOACTIVATE
+        );
+}
+
+/**
  * Runs the message loop and processes all incoming Windows messages
  * @return false when a WM_QUIT message is received, indicating the application should exit
  */
@@ -69,6 +92,8 @@ HWND Window::GetHandle() const {
     return m_hwnd;
 }
 
+/* ***************************** PRIVATE ***************************** */
+
 void Window::RegisterWindowClass() const {
     WNDCLASS wc = {};
 
@@ -89,9 +114,16 @@ LRESULT CALLBACK Window::WindowProc(const HWND hwnd, const UINT uMsg, const WPAR
         PAINTSTRUCT ps;
         const HDC hdc = BeginPaint(hwnd, &ps);
 
-        // All painting occurs here, between BeginPaint and EndPaint.
-
         FillRect(hdc, &ps.rcPaint, GetSysColorBrush(COLOR_WINDOW));
+
+        // All painting occurs here, between BeginPaint and EndPaint.
+        Renderer renderer;
+        renderer.DrawLine({0, 0}, {100, 50}, RGB(0, 0, 0));
+        Point p1 = {100, 75};
+        Point p2 = {200, 100};
+        Point p3 = {150, 200};
+        renderer.DrawTriangle(p1, p2, p3, RGB(0, 0, 0), RGB(0, 0, 0));
+        renderer.RenderAll(hdc);
 
         EndPaint(hwnd, &ps);
     }
