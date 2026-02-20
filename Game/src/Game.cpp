@@ -13,12 +13,6 @@ int WINAPI wWinMain(
     const auto engine = new Engine();
     engine->Start(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
     
-    constexpr int width = 1920, height = 1080;
-    const auto title = L"My Game Window";
-
-    const Window window(hInstance, width, height, title);
-    window.Show(nShowCmd);
-    
     while (Window::ProcessMessages()) {
         
     }
