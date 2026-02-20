@@ -1,10 +1,5 @@
 ﻿add_library(GameCore SHARED
-        src/Game.h)
-
-target_sources(GameCore
-    PRIVATE
-        src/Game.cpp
-)
+        src/Game.cpp)
 
 target_include_directories(GameCore
     PUBLIC

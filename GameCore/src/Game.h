@@ -1,10 +1,8 @@
-﻿//
-// Created by j-kon on 20.02.2026.
-//
+﻿#pragma once
 
-#pragma once
+#include "Window.h"
 
 class Game {
 public:
-    int Start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd);
+    static int start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd);
 };

@@ -1,20 +1,13 @@
-﻿//
-// Created by j-kon on 20.02.2026.
-//
-
+﻿#include "Game.h"
 #include "Engine.h"
-#include "Window.h"
 
-class Game {
-public:
-    static int Start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd) {
-        const auto engine = new Engine();
-        engine->Start(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
+int Game::start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd) {
+    WindowConfig windowConfig{.width = 1920, .height = 1080, .title = "My Game Window"};
+    const auto engine = new Engine(hInstance, hPrevInstance, lpCmdLine, nShowCmd, windowConfig);
 
-        while (Window::ProcessMessages()) {
+    while (Window::ProcessMessages()) {
 
-        }
-
-        return 0;
     }
-};
+
+    return 0;
+}

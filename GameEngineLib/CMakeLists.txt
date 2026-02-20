@@ -1,4 +1,5 @@
-add_library(GameEngineLib SHARED)
+add_library(GameEngineLib SHARED
+        src/WindowConfig.h)
 
 target_sources(GameEngineLib
     PRIVATE

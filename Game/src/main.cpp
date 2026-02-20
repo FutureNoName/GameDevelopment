@@ -8,6 +8,5 @@ int WINAPI wWinMain(
     LPWSTR lpCmdLine,
     int nShowCmd
 ) {
-    const auto game = new Game();
-    return game->Start(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
+    return Game::start(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
 }

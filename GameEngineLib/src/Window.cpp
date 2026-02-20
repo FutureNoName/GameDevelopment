@@ -11,10 +11,10 @@
  * @param title Unicode string for the window title displayed in the title bar
  */
 Window::Window(
-    const HINSTANCE hInstance,
+    HINSTANCE hInstance,
     const int width,
     const int height,
-    const wchar_t* title
+    LPCSTR title
 ): instance(hInstance) {
     RegisterWindowClass();
     hwnd = CreateWindowEx(
@@ -76,12 +76,15 @@ void Window::ResizeWindow(const int width, const int height) const {
  */
 bool Window::ProcessMessages() {
     MSG msg = {};
-    while (GetMessage(&msg, nullptr, 0, 0) > 0) {
+    while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+        if (msg.message == WM_QUIT) {
+            return false;
+        }
+
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
-
-    return false;
+    return true;
 }
 
 /**
@@ -100,7 +103,7 @@ HWND Window::GetHandle() const {
  * @param lParam second param
  * @return 
  */
-LRESULT CALLBACK Window::WindowProc(const HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
+LRESULT CALLBACK Window::WindowProc(HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
     switch (uMsg) {
     case WM_DESTROY:
         PostQuitMessage(0);
@@ -108,10 +111,10 @@ LRESULT CALLBACK Window::WindowProc(const HWND hwnd, const UINT uMsg, const WPAR
 
     case WM_PAINT: {
         PAINTSTRUCT ps;
-        const HDC hdc = BeginPaint(hwnd, &ps);
+        HDC hdc = BeginPaint(hwnd, &ps);
 
         FillRect(hdc, &ps.rcPaint, GetSysColorBrush(COLOR_WINDOW));
-        const HBRUSH brush = CreateSolidBrush(000);
+        HBRUSH brush = CreateSolidBrush(000);
         RECT clientRect;
         GetClientRect(hwnd, &clientRect);
         RECT rectToDraw;
