@@ -1,10 +1,12 @@
 ﻿add_executable(Game
-    src/Game.cpp
+    src/main.cpp
 )
-
-target_link_libraries(Game PRIVATE GameEngineLib)
+target_link_libraries(Game
+    PRIVATE
+        GameCore
+)
 
 target_include_directories(Game
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
