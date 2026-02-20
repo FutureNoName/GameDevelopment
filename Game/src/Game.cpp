@@ -1,7 +1,8 @@
-#include "Window.h"
 #include <windows.h>
 
-#include "Renderer.h"
+#include "src/Renderer.h"
+#include "src/Engine.h"
+#include "src/Window.h"
 
 int WINAPI wWinMain(
     const HINSTANCE hInstance,
@@ -9,6 +10,9 @@ int WINAPI wWinMain(
     const LPWSTR lpCmdLine,
     const int nShowCmd
 ) {
+    const auto engine = new Engine();
+    engine->Start(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
+    
     constexpr int width = 1920, height = 1080;
     const auto title = L"My Game Window";
 

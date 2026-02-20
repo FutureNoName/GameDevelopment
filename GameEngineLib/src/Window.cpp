@@ -3,8 +3,6 @@
 
 #include "Renderer.h"
 
-/* ***************************** PUBLIC ***************************** */
-
 /**
  * Window constructor
  * @param hInstance Handle to the application instance; identifies the running app for the OS and provided by it.
@@ -17,11 +15,11 @@ Window::Window(
     const int width,
     const int height,
     const wchar_t* title
-): m_instance(hInstance) {
+): instance(hInstance) {
     RegisterWindowClass();
-    m_hwnd = CreateWindowEx(
+    hwnd = CreateWindowEx(
         0, // Optional window styles.
-        m_className, // Window class
+        className, // Window class
         title, // Window text
         WS_OVERLAPPEDWINDOW, // Window style
 
@@ -30,25 +28,27 @@ Window::Window(
 
         nullptr, // Parent window
         nullptr, // Menu
-        m_instance, // Instance handle
+        instance, // Instance handle
         nullptr // Additional application data
     );
 
-    if (m_hwnd == nullptr) {
+    if (hwnd == nullptr) {
         throw std::runtime_error("Failed to create window!");
     }
 }
 
 Window::~Window() {
-    DestroyWindow(m_hwnd);
+    DestroyWindow(hwnd);
 }
+
+/* ***************************** PUBLIC ***************************** */
 
 /**
  * Displays the window
  * @param nShowCmd show command (e.g., SW_SHOW, SW_HIDE)
  */
 void Window::Show(const int nShowCmd) const {
-    ShowWindow(m_hwnd, nShowCmd);
+    ShowWindow(hwnd, nShowCmd);
 }
 
 /**
@@ -58,9 +58,9 @@ void Window::Show(const int nShowCmd) const {
  */
 void Window::ResizeWindow(const int width, const int height) const {
     RECT rect;
-    GetWindowRect(m_hwnd, &rect);
+    GetWindowRect(hwnd, &rect);
     SetWindowPos(
-        m_hwnd,
+        hwnd,
         nullptr,
         rect.left,
         rect.top,
@@ -89,21 +89,17 @@ bool Window::ProcessMessages() {
  * @return handle to the window 
  */
 HWND Window::GetHandle() const {
-    return m_hwnd;
+    return hwnd;
 }
 
-/* ***************************** PRIVATE ***************************** */
-
-void Window::RegisterWindowClass() const {
-    WNDCLASS wc = {};
-
-    wc.lpfnWndProc = WindowProc;
-    wc.hInstance = m_instance;
-    wc.lpszClassName = m_className;
-
-    RegisterClass(&wc);
-}
-
+/**
+ * Handles different window messages that get send by Windows
+ * @param hwnd window handle
+ * @param uMsg Windows message
+ * @param wParam first param 
+ * @param lParam second param
+ * @return 
+ */
 LRESULT CALLBACK Window::WindowProc(const HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
     switch (uMsg) {
     case WM_DESTROY:
@@ -115,13 +111,22 @@ LRESULT CALLBACK Window::WindowProc(const HWND hwnd, const UINT uMsg, const WPAR
         const HDC hdc = BeginPaint(hwnd, &ps);
 
         FillRect(hdc, &ps.rcPaint, GetSysColorBrush(COLOR_WINDOW));
-
-        // All painting occurs here, between BeginPaint and EndPaint.
+        const HBRUSH brush = CreateSolidBrush(000);
+        RECT clientRect;
+        GetClientRect(hwnd, &clientRect);
+        RECT rectToDraw;
+        const int rectWidth = (clientRect.right - clientRect.left) / 2;
+        const int rectHeight = (clientRect.bottom - clientRect.top) / 2;
+        
+        rectToDraw.left = (clientRect.right - clientRect.left - rectWidth) / 2;
+        rectToDraw.right = rectToDraw.left + rectWidth;
+        rectToDraw.top = (clientRect.bottom - clientRect.top - rectHeight) / 2;
+        rectToDraw.bottom = rectToDraw.top + rectHeight;
+        FillRect(hdc, &rectToDraw, brush);
+        
         Renderer renderer;
         renderer.DrawLine({0, 0}, {100, 50}, RGB(0, 0, 0));
-        Point p1 = {100, 75};
-        Point p2 = {200, 100};
-        Point p3 = {150, 200};
+        constexpr Point p1 = {.x = 100, .y = 75}, p2 = {.x = 200, .y = 100}, p3 = {.x = 150, .y = 200};
         renderer.DrawTriangle(p1, p2, p3, RGB(0, 0, 0), RGB(0, 0, 0));
         renderer.RenderAll(hdc);
 
@@ -129,7 +134,22 @@ LRESULT CALLBACK Window::WindowProc(const HWND hwnd, const UINT uMsg, const WPAR
     }
         return 0;
 
+    case WM_SIZE:
+        InvalidateRect(hwnd, nullptr, true);
+        return 0;       
     default:
         return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
+}
+
+/* ***************************** PRIVATE ***************************** */
+
+void Window::RegisterWindowClass() const {
+    WNDCLASS wc = {};
+
+    wc.lpfnWndProc = WindowProc;
+    wc.hInstance = instance;
+    wc.lpszClassName = className;
+
+    RegisterClass(&wc);
 }

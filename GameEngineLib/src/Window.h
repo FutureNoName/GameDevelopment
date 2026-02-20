@@ -18,9 +18,9 @@ public:
     HWND GetHandle() const;
 
 private:
-    HWND m_hwnd;
-    HINSTANCE m_instance;
-    const wchar_t* m_className = L"StartWindow";
+    HWND hwnd;
+    HINSTANCE instance;
+    const wchar_t* className = L"StartWindow";
 
     void RegisterWindowClass() const;
     static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
