@@ -12,3 +12,5 @@ riderModule.iml
 /GameEngineLib/Debug/
 /GameEngineLib/Release/
 /Release/
+/build/
+/.idea/
