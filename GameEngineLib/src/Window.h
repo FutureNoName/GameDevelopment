@@ -3,7 +3,7 @@
 
 class Window {
 public:
-    Window(HINSTANCE hInstance, int width, int height, const wchar_t* title);
+    Window(HINSTANCE hInstance, int width, int height, LPCSTR title);
     ~Window();
 
     Window(const Window&) = delete;
@@ -15,12 +15,13 @@ public:
     void ResizeWindow(int width, int height) const;
     static bool ProcessMessages();
 
+    [[nodiscard]]
     HWND GetHandle() const;
 
 private:
     HWND hwnd;
     HINSTANCE instance;
-    const wchar_t* className = L"StartWindow";
+    const LPCSTR className = "StartWindow";
 
     void RegisterWindowClass() const;
     static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

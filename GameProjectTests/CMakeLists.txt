@@ -1,13 +1,12 @@
 add_executable(GameProjectTests
-    tests/test.cpp
+        tests/test.cpp
 )
 
 target_link_libraries(GameProjectTests
     PRIVATE
-        Game
+        GameCore
         GTest::gtest_main
 )
 
 include(GoogleTest)
 gtest_discover_tests(GameProjectTests)
-    

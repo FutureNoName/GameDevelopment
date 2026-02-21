@@ -1,4 +1,5 @@
-add_library(GameEngineLib SHARED)
+add_library(GameEngineLib SHARED
+        src/WindowConfig.h)
 
 target_sources(GameEngineLib
     PRIVATE
@@ -9,5 +10,5 @@ target_sources(GameEngineLib
 
 target_include_directories(GameEngineLib
     PUBLIC 
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
