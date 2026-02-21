@@ -7,6 +7,10 @@
 class Engine {
 public:
     Engine(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd, const WindowConfig &config);
+
+    void update();
+    void render();
+
 private:
     Window window;
 };

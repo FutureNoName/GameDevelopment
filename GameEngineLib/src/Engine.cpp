@@ -9,3 +9,11 @@ Engine::Engine(
     ) : window(hInstance, config.width, config.height, config.title) {
     window.Show(nShowCmd);
 }
+
+void Engine::update() {
+
+}
+
+void Engine::render() {
+
+}
