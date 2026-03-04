@@ -5,7 +5,7 @@ int Game::start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, 
     WindowConfig windowConfig{.width = 1920, .height = 1080, .title = "My Game Window"};
     Engine engine(hInstance, hPrevInstance, lpCmdLine, nShowCmd, windowConfig);
 
-    while (Window::ProcessMessages()) {
+    while (Window::processMessages()) {
         engine.update();
         engine.render();
     }
