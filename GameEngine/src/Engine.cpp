@@ -7,7 +7,7 @@ Engine::Engine(
     int nShowCmd,
     const WindowConfig &config
     ) : window(hInstance, config.width, config.height, config.title) {
-    window.Show(nShowCmd);
+    window.show(nShowCmd);
 }
 
 void Engine::update() {

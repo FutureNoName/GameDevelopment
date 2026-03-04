@@ -4,13 +4,13 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /GameEngineTests/Debug/
-/GameProjectTests/Debug/
+/GameCoreTests/Debug/
 /Debug/
 *.DotSettings.user
 /Game/Debug/
 /Game/Release/
-/GameEngineLib/Debug/
-/GameEngineLib/Release/
+/GameEngine/Debug/
+/GameEngine/Release/
 /Release/
 /build/
 /.idea/
