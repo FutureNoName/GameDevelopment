@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-#include "Window.h"
+#include "Window/Windows/WindowWin32.h"
 
 void Renderer::DrawLine(Point p1, Point p2, COLORREF color) {
     linesToDraw.push_back({p1, p2, color});

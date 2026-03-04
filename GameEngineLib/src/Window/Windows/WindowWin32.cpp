@@ -1,30 +1,26 @@
-﻿#include "Window.h"
+﻿#include "WindowWin32.h"
 #include <stdexcept>
 
-#include "Renderer.h"
+#include "../../Renderer.h"
 
 /**
  * Window constructor
  * @param hInstance Handle to the application instance; identifies the running app for the OS and provided by it.
- * @param width Width of the window client area in pixels
- * @param height Height of the window client area in pixels
- * @param title Unicode string for the window title displayed in the title bar
+ * @param config Includes window width, height and title
  */
-Window::Window(
+WindowWin32::WindowWin32(
     HINSTANCE hInstance,
-    const int width,
-    const int height,
-    LPCSTR title
-): instance(hInstance) {
-    RegisterWindowClass();
+    const WindowConfig &config
+) : instance(hInstance) {
+    registerWindowClass();
     hwnd = CreateWindowEx(
         0, // Optional window styles.
         className, // Window class
-        title, // Window text
+        config.title, // Window text
         WS_OVERLAPPEDWINDOW, // Window style
 
         // Size and position
-        CW_USEDEFAULT, CW_USEDEFAULT, width, height,
+        CW_USEDEFAULT, CW_USEDEFAULT, config.width, config.height,
 
         nullptr, // Parent window
         nullptr, // Menu
@@ -37,7 +33,7 @@ Window::Window(
     }
 }
 
-Window::~Window() {
+WindowWin32::~WindowWin32() {
     DestroyWindow(hwnd);
 }
 
@@ -47,7 +43,7 @@ Window::~Window() {
  * Displays the window
  * @param nShowCmd show command (e.g., SW_SHOW, SW_HIDE)
  */
-void Window::Show(const int nShowCmd) const {
+void WindowWin32::show(const int nShowCmd) {
     ShowWindow(hwnd, nShowCmd);
 }
 
@@ -56,7 +52,7 @@ void Window::Show(const int nShowCmd) const {
  * @param width window width (x)
  * @param height window height (y)
  */
-void Window::ResizeWindow(const int width, const int height) const {
+void WindowWin32::resizeWindow(const int width, const int height) const {
     RECT rect;
     GetWindowRect(hwnd, &rect);
     SetWindowPos(
@@ -74,7 +70,7 @@ void Window::ResizeWindow(const int width, const int height) const {
  * Runs the message loop and processes all incoming Windows messages
  * @return false when a WM_QUIT message is received, indicating the application should exit
  */
-bool Window::ProcessMessages() {
+bool WindowWin32::processMessages() {
     MSG msg = {};
     while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
         if (msg.message == WM_QUIT) {
@@ -91,7 +87,7 @@ bool Window::ProcessMessages() {
  * Handle getter
  * @return handle to the window 
  */
-HWND Window::GetHandle() const {
+HWND WindowWin32::getHandle() const {
     return hwnd;
 }
 
@@ -103,7 +99,7 @@ HWND Window::GetHandle() const {
  * @param lParam second param
  * @return 
  */
-LRESULT CALLBACK Window::WindowProc(HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
+LRESULT CALLBACK WindowWin32::windowProc(HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
     switch (uMsg) {
     case WM_DESTROY:
         PostQuitMessage(0);
@@ -147,10 +143,10 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, const UINT uMsg, const WPARAM wPa
 
 /* ***************************** PRIVATE ***************************** */
 
-void Window::RegisterWindowClass() const {
+void WindowWin32::registerWindowClass() const {
     WNDCLASS wc = {};
 
-    wc.lpfnWndProc = WindowProc;
+    wc.lpfnWndProc = windowProc;
     wc.hInstance = instance;
     wc.lpszClassName = className;
 

@@ -8,5 +8,8 @@ int WINAPI wWinMain(
     LPWSTR lpCmdLine,
     int nShowCmd
 ) {
-    return Game::start(hInstance, hPrevInstance, lpCmdLine, nShowCmd);
+    (void)hInstance;
+    (void)hPrevInstance;
+    (void)lpCmdLine;
+    return Game::start(nShowCmd);
 }
