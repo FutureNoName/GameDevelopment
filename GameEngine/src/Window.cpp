@@ -16,7 +16,7 @@ Window::Window(
     const int height,
     LPCSTR title
 ): instance(hInstance) {
-    RegisterWindowClass();
+    registerWindowClass();
     hwnd = CreateWindowEx(
         0, // Optional window styles.
         className, // Window class
@@ -47,7 +47,7 @@ Window::~Window() {
  * Displays the window
  * @param nShowCmd show command (e.g., SW_SHOW, SW_HIDE)
  */
-void Window::Show(const int nShowCmd) const {
+void Window::show(const int nShowCmd) const {
     ShowWindow(hwnd, nShowCmd);
 }
 
@@ -56,7 +56,7 @@ void Window::Show(const int nShowCmd) const {
  * @param width window width (x)
  * @param height window height (y)
  */
-void Window::ResizeWindow(const int width, const int height) const {
+void Window::resizeWindow(const int width, const int height) const {
     RECT rect;
     GetWindowRect(hwnd, &rect);
     SetWindowPos(
@@ -74,7 +74,7 @@ void Window::ResizeWindow(const int width, const int height) const {
  * Runs the message loop and processes all incoming Windows messages
  * @return false when a WM_QUIT message is received, indicating the application should exit
  */
-bool Window::ProcessMessages() {
+bool Window::processMessages() {
     MSG msg = {};
     while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
         if (msg.message == WM_QUIT) {
@@ -91,7 +91,7 @@ bool Window::ProcessMessages() {
  * Handle getter
  * @return handle to the window 
  */
-HWND Window::GetHandle() const {
+HWND Window::getHandle() const {
     return hwnd;
 }
 
@@ -103,7 +103,7 @@ HWND Window::GetHandle() const {
  * @param lParam second param
  * @return 
  */
-LRESULT CALLBACK Window::WindowProc(HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
+LRESULT CALLBACK Window::windowProc(HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam) {
     switch (uMsg) {
     case WM_DESTROY:
         PostQuitMessage(0);
@@ -128,10 +128,10 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, const UINT uMsg, const WPARAM wPa
         FillRect(hdc, &rectToDraw, brush);
         
         Renderer renderer;
-        renderer.DrawLine({0, 0}, {100, 50}, RGB(0, 0, 0));
+        renderer.drawLine({0, 0}, {100, 50}, RGB(0, 0, 0));
         constexpr Point p1 = {.x = 100, .y = 75}, p2 = {.x = 200, .y = 100}, p3 = {.x = 150, .y = 200};
-        renderer.DrawTriangle(p1, p2, p3, RGB(0, 0, 0), RGB(0, 0, 0));
-        renderer.RenderAll(hdc);
+        renderer.drawTriangle(p1, p2, p3, RGB(0, 0, 0), RGB(0, 0, 0));
+        renderer.renderAll(hdc);
 
         EndPaint(hwnd, &ps);
     }
@@ -147,12 +147,13 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, const UINT uMsg, const WPARAM wPa
 
 /* ***************************** PRIVATE ***************************** */
 
-void Window::RegisterWindowClass() const {
+void Window::registerWindowClass() const {
     WNDCLASS wc = {};
 
-    wc.lpfnWndProc = WindowProc;
+    wc.lpfnWndProc = windowProc;
     wc.hInstance = instance;
     wc.lpszClassName = className;
+    wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 
     RegisterClass(&wc);
 }

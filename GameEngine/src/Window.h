@@ -11,18 +11,18 @@ public:
     Window& operator=(const Window&) = delete;
     Window& operator=(Window&&) = delete;
 
-    void Show(int nShowCmd) const;
-    void ResizeWindow(int width, int height) const;
-    static bool ProcessMessages();
+    void show(int nShowCmd) const;
+    void resizeWindow(int width, int height) const;
+    static bool processMessages();
 
     [[nodiscard]]
-    HWND GetHandle() const;
+    HWND getHandle() const;
 
 private:
     HWND hwnd;
     HINSTANCE instance;
     const LPCSTR className = "StartWindow";
 
-    void RegisterWindowClass() const;
-    static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    void registerWindowClass() const;
+    static LRESULT CALLBACK windowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 };

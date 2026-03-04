@@ -14,8 +14,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_subdirectory(GameEngineLib)
+add_subdirectory(GameEngine)
 add_subdirectory(GameCore)
 add_subdirectory(Game)
 add_subdirectory(GameEngineTests)
-add_subdirectory(GameProjectTests)
+add_subdirectory(GameCoreTests)
